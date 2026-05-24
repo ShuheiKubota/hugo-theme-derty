@@ -1,0 +1,15 @@
+{{ if or .PrevInSection .NextInSection }}
+  <div class="pagenav">
+    <div class="pagenav_prev">
+      {{ if .PrevInSection }}
+        <a href="{{ .PrevInSection.Permalink }}">&laquo; {{ .PrevInSection.Title }} &laquo;</a>
+      {{ end }}
+    </div>
+    <div class="pagenav_next">
+      {{ if .NextInSection }}
+        <a href="{{ .NextInSection.Permalink }}">&raquo; {{ .NextInSection.Title }} &raquo;</a>
+      {{ end }}
+    </div>
+  </div>
+{{ end }}
+{{/* vim: set et ft=html sts=2 sw=2 ts=2 : */}}

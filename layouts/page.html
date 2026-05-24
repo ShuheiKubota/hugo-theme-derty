@@ -1,10 +1,23 @@
 {{ define "main" }}
   <h1>{{ .Title }}</h1>
 
-  {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
-  {{ $dateHuman := .Date | time.Format ":date_long" }}
-  <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+  {{/* コンテンツの最終更新日時とタグ */}}
+  <span class="lastmod">{{ .Lastmod.Format "2006-01-02 15:04:05" }}</span>
+  {{ with .GetTerms "tags" }}
+    {{ range . }}
+      <span class="tag"><a href="{{ .RelPermalink  }}">{{ .LinkTitle }}</a></span>
+    {{ end }}
+  {{ end }}
+
+  {{/* 表示期限切れの警告 */}}
+  {{/* あらかじめプロジェクトの [params.derty] 内に以下の if で使っているパラメーターを設定しておく */}}
+  {{ if and .Site.Params.derty.outdateUnit .Site.Params.derty.outdateFreshLimit }}
+    {{/* 最終的な表示は js にまかせる */}}
+    <div class="may_be_outdated" cheep-since="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}" cheep-limit="{{ .Site.Params.derty.outdateFreshLimit }}" cheep-limit-unit="{{ .Site.Params.derty.outdateUnit }}"></div>
+  {{ end }}
 
   {{ .Content }}
-  {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+
+  {{ partial "pagenav.html" . }}
 {{ end }}
+{{/* vim: set et ft=html sts=2 sw=2 ts=2 : */}}
