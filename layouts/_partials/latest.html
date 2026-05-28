@@ -1,0 +1,16 @@
+{{/* 最近更新されたコンテンツを一覧表示する */}}
+<div class="latest_list_container">
+  <ul>
+    {{ range first 10 (sort .Site.RegularPages "Lastmod" "desc") }}
+      <li><a href="{{ .Permalink }}" title={{ .Summary }}>
+        <span style="display:inline-block; text-decoration:none">{{ $.Site.Params.derty.latestIconHTML | default "📄" | safeHTML }} </span>
+        {{- .Title -}}
+        <span class="lastmod">{{ .Lastmod.Format "2006-01-02 15:04:05" }}</span>
+        <div class="latest_summary">
+          {{- replaceRE "<[^>]+>" "" .Summary -}}
+        </div>
+      </a></li>
+    {{ end }}
+  </ul>
+</div>
+{{/* vim: set et ft=html sts=2 sw=2 ts=2 : */}}

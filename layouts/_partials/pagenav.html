@@ -1,13 +1,32 @@
+{{/* セクション内の前後のコンテンツページ */}}
+{{/* <前ページ  次ページ> */}}
+
 {{ if or .PrevInSection .NextInSection }}
+  {{ $prev := .PrevInSection }}
+  {{ $next := .NextInSection }}
+
+  {{/*
+    シリーズものを扱うセクションの場合、セクションでの一覧と同じ基準で前後のページを決める。
+    section.html も参照のこと。
+
+    通常: <過去のページ  未来のページ>
+    シリーズ: <最初の方のページ  最新の方のページ>
+  */}}
+  {{ if .CurrentSection.Params.series }}
+    {{ $pages := .CurrentSection.Pages.ByTitle }}
+    {{ $prev = $pages.Next . }}
+    {{ $next = $pages.Prev . }}
+  {{ end }}
+
   <div class="pagenav">
     <div class="pagenav_prev">
-      {{ if .PrevInSection }}
-        <a href="{{ .PrevInSection.Permalink }}">&laquo; {{ .PrevInSection.Title }} &laquo;</a>
+      {{ if $prev }}
+        <a href="{{ $prev.Permalink }}">&laquo; {{ $prev.Title }} &laquo;</a>
       {{ end }}
     </div>
     <div class="pagenav_next">
-      {{ if .NextInSection }}
-        <a href="{{ .NextInSection.Permalink }}">&raquo; {{ .NextInSection.Title }} &raquo;</a>
+      {{ if $next }}
+        <a href="{{ $next.Permalink }}">&raquo; {{ $next.Title }} &raquo;</a>
       {{ end }}
     </div>
   </div>

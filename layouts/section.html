@@ -1,10 +1,27 @@
 {{ define "main" }}
+  {{/* セクション自身の内容 */}}
   <h1>{{ .Title }}</h1>
   {{ .Content }}
-  {{ range .Pages }}
-    <section>
-      <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-      {{ .Summary }}
-    </section>
+
+  {{/*
+    シリーズものを扱うセクションの場合、
+    通常とは異なり、最初のコンテンツを一覧の最初に持ってくる。(通常であれば、例えば最新のコンテンツが来るところ)
+
+    セクションの _index.md のフロントマターに params: series: true を指定すると有効化される。
+  */}}
+  {{ $pages := .Pages }}
+  {{ if .Param "series" }}
+    {{ $pages = .Pages.ByTitle }}
   {{ end }}
+
+  {{/* ページネーション */}}
+  <div class="list_container">
+    <ul>
+      {{ range (.Paginate $pages).Pages }}
+        {{ partial "page_as_listitem.html" . }}
+      {{ end }}
+    </ul>
+    {{ partial "pagination.html" . }}
+  </div>
 {{ end }}
+{{/* vim: set et ft=html sts=2 sw=2 ts=2 : */}}

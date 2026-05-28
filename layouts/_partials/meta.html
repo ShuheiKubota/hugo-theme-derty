@@ -1,0 +1,29 @@
+{{ "<!-- META -->" | safeHTML }}
+{{ hugo.Generator }}
+<meta name="copyright" content="{{ .Site.Copyright }}">
+
+{{- with .OutputFormats.Get "RSS" }}
+<link rel="alternate" type="application/atom+xml" title="{{ $.Site.Title }}" href="{{ .RelPermalink }}" />
+{{- end }}
+
+{{ partial "opengraph.html" . }}
+{{ partial "schema.html" . }}
+{{ partial "twitter_cards.html" . }}
+
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+{{ partial "mincss.html" (dict "sass" "sass/derty.scss" "css" "css/derty.css" "static" "css/derty.css" "base" .Site.BaseURL) }}
+
+<!-- syntax highlighting -->
+{{ $cssSyntax := resources.Get "css/syntax.css" }}
+{{ $cssSyntaxDark := resources.Get "css/syntax_dark.css" }}
+<style type="text/css" media="screen">
+  @media (prefers-color-scheme: dark) { 
+    {{ $cssSyntaxDark.Content | safeCSS }}
+  }
+  @media (prefers-color-scheme: light) { 
+    {{ $cssSyntax.Content | safeCSS }}
+  }
+</style>
+{{ "<!-- META -->" | safeHTML }}
+{{/* vim: set et ft=html sts=2 sw=2 ts=2 : */}}

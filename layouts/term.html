@@ -1,7 +1,16 @@
 {{ define "main" }}
+  {{/* 分類値自身の内容 */}}
   <h1>{{ .Title }}</h1>
   {{ .Content }}
-  {{ range .Pages }}
-    <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-  {{ end }}
+
+  {{/* ページネーション */}}
+  <div class="list_container">
+    <ul>
+      {{ range .Paginator.Pages }}
+        {{ partial "page_as_listitem.html" . }}
+      {{ end }}
+    </ul>
+    {{ partial "pagination.html" . }}
+  </div>
 {{ end }}
+{{/* vim: set et ft=html sts=2 sw=2 ts=2 : */}}

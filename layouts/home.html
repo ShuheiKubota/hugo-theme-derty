@@ -1,9 +1,16 @@
+{{/* トップページ */}}
 {{ define "main" }}
-  {{ .Content }}
-  {{ range site.RegularPages }}
-    <section>
-      <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-      {{ .Summary }}
-    </section>
-  {{ end }}
+  <h1>{{ .Page.Title }}</h1>
+  {{ .Page.Content }}
+
+  <div class="list_container">
+    <ul>
+      {{/* セクションが増えてきたら調整するかも… */}}
+      {{ range (.Paginate .Sections.ByTitle 100).Pages -}}
+        {{ partial "page_as_listitem.html" . }}
+      {{ end }}
+    </ul>
+    {{ partial "pagination.html" . }}
+  </div>
 {{ end }}
+{{/* vim: set et ft=html sts=2 sw=2 ts=2 : */}}

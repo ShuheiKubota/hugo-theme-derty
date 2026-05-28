@@ -1,7 +1,7 @@
 {{ define "main" }}
   <h1>{{ .Title }}</h1>
 
-  {{/* ƒRƒ“ƒeƒ“ƒc‚ÌÅIXV“ú‚Æƒ^ƒO */}}
+  {{/* ã‚³ãƒ³ãƒ†ãƒ³ãƒ„ã®æœ€çµ‚æ›´æ–°æ—¥æ™‚ã¨ã‚¿ã‚° */}}
   <span class="lastmod">{{ .Lastmod.Format "2006-01-02 15:04:05" }}</span>
   {{ with .GetTerms "tags" }}
     {{ range . }}
@@ -9,11 +9,11 @@
     {{ end }}
   {{ end }}
 
-  {{/* •\¦ŠúŒÀØ‚ê‚ÌŒx */}}
-  {{/* ‚ ‚ç‚©‚¶‚ßƒvƒƒWƒFƒNƒg‚Ì [params.derty] “à‚ÉˆÈ‰º‚Ì if ‚Åg‚Á‚Ä‚¢‚éƒpƒ‰ƒ[ƒ^[‚ğİ’è‚µ‚Ä‚¨‚­ */}}
-  {{ if and .Site.Params.derty.outdateUnit .Site.Params.derty.outdateFreshLimit }}
-    {{/* ÅI“I‚È•\¦‚Í js ‚É‚Ü‚©‚¹‚é */}}
-    <div class="may_be_outdated" cheep-since="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}" cheep-limit="{{ .Site.Params.derty.outdateFreshLimit }}" cheep-limit-unit="{{ .Site.Params.derty.outdateUnit }}"></div>
+  {{/* è¡¨ç¤ºæœŸé™åˆ‡ã‚Œã®è­¦å‘Š */}}
+  {{/* ã‚ã‚‰ã‹ã˜ã‚ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆã® [params.derty] å†…ã«ä»¥ä¸‹ã® if ã§ä½¿ã£ã¦ã„ã‚‹ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‚’è¨­å®šã—ã¦ãŠã */}}
+  {{ if and .Site.Params.derty.outdatedUnit .Site.Params.derty.outdatedLimit }}
+    {{/* æœ€çµ‚çš„ãªè¡¨ç¤ºã¯ js ã«ã¾ã‹ã›ã‚‹ */}}
+    <div class="may_be_outdated" derty-outdated-since="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}" derty-outdated-limit="{{ .Site.Params.derty.outdatedLimit }}" derty-outdated-limit-unit="{{ .Site.Params.derty.outdatedUnit }}">{{ .Site.Params.derty.outdatedMessageHTML | default  "æœ€çµ‚æ›´æ–°æ—¥ã‹ã‚‰ %s ä»¥ä¸ŠãŒçµŒéã—ã¦ã„ã¾ã™ã€‚<br/>å†…å®¹ãŒå¤ããªã£ã¦ã„ã‚‹å¯èƒ½æ€§ãŒã‚ã‚‹ã®ã§ã”æ³¨æ„ãã ã•ã„ã€‚" | safeHTML }}</div>
   {{ end }}
 
   {{ .Content }}

@@ -1,0 +1,741 @@
+@use "sass:color";
+@use "sass:map";
+
+$derty_white: rgb(240, 240, 240);
+$derty_black: rgb(45, 45, 45);
+$derty_dimmed_white: color.adjust($derty_white, $lightness: -20%);
+$derty_half: color.mix($derty_white, $derty_black, 50%);
+
+$derty_alert_note: rgb(128, 128, 128);
+$derty_alert_tip: hsl(120, 50%, 50%);
+$derty_alert_important: rgb(255, 255, 255);
+$derty_alert_warning: hsl(60, 50%, 50%);
+$derty_alert_caution: hsl(0, 50%, 50%);
+
+$derty_blue: rgb(25, 113, 255);
+$derty_red: rgb(255, 75, 0);
+
+// ==========================================
+// 1. Variables & Themes
+// ==========================================
+$colors: (
+  light: (
+    bgcolor: $derty_white,
+    color: $derty_black,
+    half: $derty_half,
+    link_color: color.mix($derty_black, $derty_blue, 25%),
+    link_hover_color: color.adjust(color.mix($derty_black, $derty_blue, 25%), $lightness: 30%),
+    link_visited_color: color.mix($derty_black, $derty_red, 25%),
+    link_visited_hover_color: color.adjust(color.mix($derty_black, $derty_red, 25%), $lightness: 10%),
+    header_bgcolor: black,
+    header_color: white,
+    footer_bgcolor: black,
+    footer_color: white,
+    band_bgcolor: $derty_white,
+    band_color: $derty_black,
+    side_border_color: rgb(200, 200, 200),
+    main_border_color: rgb(160, 160, 160),
+    main_filled_bgcolor: rgb(220, 220, 220),
+    main_filled_color: $derty_black,
+    pre_bgcolor: color.adjust($derty_white, $lightness: 5%),
+    latest_summary_color: gray,
+    tag_color: color.adjust($derty_white, $lightness: -3%),
+    tag_marker_color: color.adjust($derty_white, $lightness: -13%),
+    code_hl: color.mix($derty_white, rgb(255, 255, 0), 75%),
+    may_be_outdated: color.mix($derty_white, rgb(255, 0, 0), 90%),
+    alert_note_border_color: color.mix($derty_white, rgb(200, 200, 200), 50%),
+    alert_note_bgcolor: color.mix($derty_white, $derty_black, 95%),
+    alert_note_heading_color: color.mix($derty_black, $derty_white, 40%),
+    alert_note_color: color.mix($derty_black, $derty_white, 80%),
+    alert_tip_border_color: color.mix($derty_white, $derty_alert_tip, 50%),
+    alert_tip_bgcolor: color.mix($derty_white, $derty_alert_tip, 95%),
+    alert_tip_heading_color: color.mix(color.mix($derty_alert_tip, $derty_black, 75%), $derty_white, 85%),
+    alert_tip_color: color.mix($derty_black, $derty_white, 80%),
+    alert_important_border_color: color.mix($derty_white, $derty_black, 50%),
+    alert_important_bgcolor: color.mix($derty_white, $derty_alert_important, 5%),
+    alert_important_heading_color: color.mix(color.mix($derty_black, $derty_black, 75%), $derty_white, 85%),
+    alert_important_color: color.mix($derty_black, $derty_white, 80%),
+    alert_warning_border_color: color.mix($derty_white, $derty_alert_warning, 50%),
+    alert_warning_bgcolor: color.mix($derty_white, $derty_alert_warning, 95%),
+    alert_warning_heading_color: color.mix(color.mix($derty_alert_warning, $derty_black, 75%), $derty_white, 85%),
+    alert_warning_color: color.mix($derty_black, $derty_white, 80%),
+    alert_caution_border_color: color.mix($derty_white, $derty_alert_caution, 50%),
+    alert_caution_bgcolor: color.mix($derty_white, $derty_alert_caution, 95%),
+    alert_caution_heading_color: color.mix(color.mix($derty_alert_caution, $derty_black, 75%), $derty_white, 85%),
+    alert_caution_color: color.mix($derty_black, $derty_white, 80%),
+  ),
+  dark: (
+    bgcolor: $derty_black,
+    color: $derty_dimmed_white,
+    half: $derty_half,
+    link_color: color.adjust(color.mix($derty_dimmed_white, $derty_blue, 50%), $lightness: 5%),
+    link_hover_color: color.adjust(color.mix($derty_dimmed_white, $derty_blue, 50%), $lightness: 15%),
+    link_visited_color: color.adjust(color.mix($derty_dimmed_white, $derty_red, 50%), $lightness: -5%),
+    link_visited_hover_color: color.adjust(color.mix($derty_dimmed_white, $derty_red, 50%), $lightness: 5%),
+    header_bgcolor: black,
+    header_color: white,
+    footer_bgcolor: black,
+    footer_color: white,
+    band_bgcolor: $derty_black,
+    band_color: $derty_dimmed_white,
+    side_border_color: rgb(160, 160, 160),
+    main_border_color: rgb(160, 160, 160),
+    main_filled_bgcolor: rgb(90, 90, 90),
+    main_filled_color: $derty_dimmed_white,
+    pre_bgcolor: color.adjust($derty_black, $lightness: -5%),
+    latest_summary_color: lightgray,
+    tag_color: color.adjust($derty_black, $lightness: 5%),
+    tag_marker_color: color.adjust($derty_black, $lightness: 25%),
+    code_hl: color.mix($derty_black, rgb(255, 255, 0), 95%),
+    may_be_outdated: color.mix($derty_black, rgb(255, 0, 0), 80%),
+    alert_note_border_color: color.mix($derty_black, rgb(200, 200, 200), 50%),
+    alert_note_bgcolor: color.mix($derty_black, $derty_white, 95%),
+    alert_note_heading_color: color.mix($derty_white, $derty_black, 50%),
+    alert_note_color: color.mix($derty_white, $derty_black, 80%),
+    alert_tip_border_color: color.mix($derty_black, $derty_alert_tip, 50%),
+    alert_tip_bgcolor: color.mix($derty_black, $derty_alert_tip, 95%),
+    alert_tip_heading_color: color.mix(color.mix($derty_alert_tip, $derty_white, 75%), $derty_white, 85%),
+    alert_tip_color: color.mix($derty_white, $derty_black, 80%),
+    alert_important_border_color: color.mix($derty_black, $derty_white, 50%),
+    alert_important_bgcolor: color.mix($derty_black, $derty_alert_important, 90%),
+    alert_important_heading_color: color.mix(color.mix($derty_white, $derty_white, 75%), $derty_white, 85%),
+    alert_important_color: color.mix($derty_white, $derty_black, 80%),
+    alert_warning_border_color: color.mix($derty_black, $derty_alert_warning, 50%),
+    alert_warning_bgcolor: color.mix($derty_black, $derty_alert_warning, 95%),
+    alert_warning_heading_color: color.mix(color.mix($derty_alert_warning, $derty_white, 75%), $derty_white, 85%),
+    alert_warning_color: color.mix($derty_white, $derty_black, 80%),
+    alert_caution_border_color: color.mix($derty_black, $derty_alert_caution, 50%),
+    alert_caution_bgcolor: color.mix($derty_black, $derty_alert_caution, 95%),
+    alert_caution_heading_color: color.mix(color.mix($derty_alert_caution, $derty_white, 75%), $derty_white, 85%),
+    alert_caution_color: color.mix($derty_white, $derty_black, 80%),
+  ),
+);
+
+:root {
+  @each $prop, $val in map.get($colors, light) {
+    --#{$prop}: #{$val};
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    @each $prop, $val in map.get($colors, dark) {
+      --#{$prop}: #{$val};
+    }
+  }
+}
+
+// ==========================================
+// 2. Mixins
+// ==========================================
+@mixin alert($kind) {
+  border: thin solid var(--alert_#{$kind}_border_color);
+  color: var(--alert_#{$kind}_color);
+  background-color: var(--alert_#{$kind}_bgcolor);
+
+  .alert-heading {
+    color: var(--alert_#{$kind}_heading_color);
+    font-size: large;
+    font-weight: 300;
+    @if $kind == "important" {
+      font-weight: bold;
+    }
+  }
+}
+
+// ==========================================
+// 3. Base Styles
+// ==========================================
+body {
+  margin: 0;
+  color: var(--color);
+}
+
+img {
+  max-width: 100%;
+
+  @media (prefers-color-scheme: dark) {
+    filter: brightness(0.85);
+    &:hover {
+      filter: brightness(1.00);
+    }
+  }
+}
+
+li > p {
+  margin: 0;
+}
+
+// ==========================================
+// 4. Layout Components
+// ==========================================
+.main {
+  background-color: var(--bgcolor);
+
+  a {
+    color: var(--link_color);
+    &:hover {
+      color: var(--link_hover_color);
+    }
+    &:visited {
+      color: var(--link_visited_color);
+    }
+    &:visited:hover {
+      color: var(--link_visited_hover_color);
+    }
+  }
+}
+
+.header {
+  background-color: var(--header_bgcolor);
+  color: var(--header_color);
+  font-size: x-large;
+  padding-top: 1em;
+  padding-bottom: 1em;
+
+  * {
+    color: var(--header_color);
+    text-decoration: none;
+  }
+}
+
+.footer {
+  text-align: right;
+  background-color: var(--footer_bgcolor);
+  color: var(--footer_color);
+
+  a {
+    color: var(--header_color);
+    text-decoration: none;
+  }
+}
+
+@media (min-width: 1080px) {
+  .main {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+  }
+
+  .toc-area {
+    display: table-cell;
+    width: 10%;
+    min-width: 20em;
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+
+  .main-area {
+    display: table-cell;
+    width: 30%;
+  }
+
+  .side-area {
+    display: table-cell;
+    width: 10%;
+    min-width: 20em;
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+
+  .header {
+    padding-left: 25%;
+  }
+}
+
+// ==========================================
+// 5. Main Content Area
+// ==========================================
+.main-area {
+  padding-left: 2%;
+  padding-right: 2%;
+
+  // Headings
+  h1 {
+    border-bottom: double 5px var(--main_border_color);
+    margin-bottom: 1em;
+  }
+
+  h2 {
+    padding: 1ex;
+    border: solid thin var(--main_border_color);
+    border-left: double 7px var(--main_border_color);
+    border-right: double 7px var(--main_border_color);
+  }
+
+  h3 {
+    position: relative;
+    padding: 0.5ex;
+    padding-left: 1ex;
+    background: var(--main_filled_bgcolor);
+    color: var(--main_filled_color);
+
+    &:after {
+      position: absolute;
+      content: '';
+      top: 100%;
+      left: 30px;
+      border: 15px solid transparent;
+      border-top: 15px solid var(--main_filled_bgcolor);
+      width: 0;
+      height: 0;
+    }
+  }
+
+  h4 {
+    &:before {
+      content: '\02500\02500\00a0';
+    }
+    &:after {
+      content: '\00a0\02500\02500';
+    }
+  }
+
+  p ~ {
+    h1, h2, h3 {
+      margin-top: 2em;
+    }
+  }
+
+  // Tables
+  table {
+    border: solid thin var(--main_border_color);
+    border-collapse: collapse;
+  }
+
+  thead th {
+    border-bottom: solid thin var(--main_border_color);
+  }
+
+  th {
+    padding-left: 0.5ex;
+    padding-right: 0.5ex;
+    border: dashed thin var(--main_border_color);
+  }
+
+  td {
+    padding: 1ex;
+    border: dashed thin var(--main_border_color);
+  }
+
+  .lastmod ~ .tag {
+    margin-left: 1em;
+  }
+
+  // Elements directly under .main-area
+  > {
+    *:not(h1,h2,h3,h4,h5,h6, span.lastmod, span.lastmod + *, p, ul, ol) {
+      margin-left: 3em;
+      margin-right: 3em;
+    }
+
+    p, ul, ol {
+      margin-left: 2em;
+      margin-right: 2em;
+      line-height: 150%;
+    }
+
+    hr {
+      margin: 2em auto;
+      border: 0;
+      border-top: 1px var(--half) solid;
+    }
+
+    pre {
+      margin-left: 2em;
+      padding: 0.5ex;
+      background: var(--pre_bgcolor);
+      border: solid thin var(--main_border_color);
+    }
+
+    // Code Highlight block
+    .highlight {
+      position: relative;
+      line-height: 1em;
+      margin-left: 2em;
+      border: solid thin var(--main_border_color);
+
+      > .chroma {
+        background: var(--pre_bgcolor);
+        overflow-x: scroll;
+        margin: 0;
+
+        table.lntable td:nth-child(2) {
+          width: 100%;
+        }
+        td.lntd pre {
+          margin: 0;
+        }
+      }
+
+      // Code copy button
+      .copy {
+        position: absolute;
+        left: auto;
+        right: 0;
+        top: 0;
+
+        backdrop-filter: blur(50px) invert(30%);
+        background-color: var(--bgcolor);
+
+        filter: grayscale(100%);
+        color: var(--color);
+        font-size: small;
+        text-decoration: none;
+
+        cursor: pointer;
+
+        border: none;
+        margin: 5px;
+        padding: 3px;
+      }
+    }
+
+    // Blockquote & Alerts
+    blockquote {
+      margin-left: 5em;
+      margin-right: 5em;
+      padding-left: 1em;
+      padding-right: 1em;
+
+      &:not(.alert) {
+        border: thin solid var(--alert_note_border_color);
+        color: var(--alert_note_color);
+        background-color: var(--alert_note_bgcolor);
+      }
+
+      .alert-heading {
+        margin-top: 0.5em;
+        margin-bottom: 0;
+      }
+
+      &.alert p:not(.alert-heading) {
+        margin-top: 0;
+        padding-left: 1em;
+      }
+    }
+  }
+}
+
+// Alert specific classes
+.alert-note {
+  @include alert(note);
+}
+.alert-tip {
+  @include alert(tip);
+}
+.alert-important {
+  @include alert(important);
+  .alert-heading {
+      font-weight: bold;
+  }
+}
+.alert-warning {
+  @include alert(warning);
+}
+.alert-caution {
+  @include alert(caution);
+}
+
+figcaption p {
+  margin: 0px;
+}
+
+// Hugo/Chroma styling
+.chroma {
+  span.lnt {
+    color: var(--color);
+  }
+  span.hl {
+    background-color: var(--code_hl);
+    .lnt {
+      font-weight: bold;
+    }
+  }
+}
+
+// ==========================================
+// 6. Sidebar & Widgets
+// ==========================================
+#TableOfContents {
+  &:before {
+    display: block;
+    content: "Contents";
+    font-weight: bold;
+    background-color: var(--band_bgcolor);
+    color: var(--band_color);
+  }
+
+  border: thin solid var(--side_border_color);
+  padding: 0.5em;
+
+  word-break: break-all;
+  overflow-wrap: break-word;
+
+  > ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  ul {
+    ul ul {
+      display: none;
+    }
+  }
+
+  li {
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+  }
+}
+
+#TableOfContents:empty {
+  display: none;
+}
+
+.profile {
+  border: thin solid var(--side_border_color);
+  margin-bottom: 2em;
+  overflow: hidden;
+
+  &:before {
+    display: block;
+    padding: 1ex;
+    content: "Profile";
+    font-weight: bold;
+    background-color: var(--band_bgcolor);
+    color: var(--band_color);
+  }
+
+  > * {
+    padding: 0 1em;
+  }
+
+  img {
+    max-width: 50%;
+    float: left;
+  }
+}
+
+.latest_list_container {
+  border: thin solid var(--side_border_color);
+
+  &:before {
+    display: block;
+    padding: 1ex;
+    content: "Latest";
+    font-weight: bold;
+    background-color: var(--band_bgcolor);
+    color: var(--band_color);
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    border-bottom: thin dotted var(--side_border_color);
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+
+    .lastmod {
+      padding-left: 1em;
+      display: block;
+      text-decoration: none;
+      color: var(--latest_summary_color);
+    }
+  }
+}
+
+.latest_summary {
+  padding-left: 2em;
+  padding-right: 2em;
+  display: inline-block;
+  text-decoration: none;
+  font-size: small;
+  color: var(--latest_summary_color);
+}
+
+.tags_container {
+  border: thin solid var(--side_border_color);
+  margin-top: 2em;
+
+  &:before {
+    display: block;
+    padding: 1ex;
+    content: "Tags";
+    font-weight: bold;
+    background-color: var(--band_bgcolor);
+    color: var(--band_color);
+  }
+
+  ul {
+    list-style: none;
+    list-style-type: none;
+    padding: 1ex;
+    margin: 0;
+
+    li {
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.tag {
+  display: inline-block;
+  border-left: 0.75ex solid var(--tag_marker_color);
+  background-color: var(--tag_color);
+  border-right: thin solid var(--tag_marker_color);
+  border-bottom: thin solid var(--tag_marker_color);
+  padding-left: 0.5ex;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-right: 1ex;
+  filter: drop-shadow(1px 1px 3px rgba(0,0,0,0.1));
+
+  .tag_count {
+    &:before {
+      content: " [";
+    }
+    font-size: x-small;
+    &:after {
+      content: "]";
+    }
+  }
+
+  a {
+    text-decoration-line: none;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    border-right: thin solid var(--tag_color);
+    border-bottom: thin solid var(--tag_color);
+    filter: drop-shadow(1px 2px 3px rgba(0,0,0,1));
+  }
+}
+
+// ==========================================
+// 7. Utilities & Interactive Elements
+// ==========================================
+.list_container {
+  margin-top: 3em;
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  li {
+    padding: 0.5em 0;
+  }
+
+  p {
+    padding-left: 2em;
+    padding-top: 1em;
+  }
+}
+
+.pagenav {
+  margin-top: 3em;
+  display: flex;
+  justify-content: space-around;
+
+  div {
+    padding: 5px;
+    width: 40%;
+  }
+}
+
+.pagenav_prev {
+  text-align: left;
+}
+
+.pagenav_next {
+  text-align: right;
+}
+
+.pagination {
+  list-style-type: none;
+  display: flex;
+
+  a {
+    padding: 5px;
+    text-decoration: none;
+  }
+
+  .disabled a {
+    color: var(--color);
+  }
+
+  .active a {
+    pointer-events: none;
+    font-weight: bold;
+    color: var(--color);
+
+    &:before {
+      white-space: pre;
+      content: " ";
+    }
+    &:after {
+      white-space: pre;
+      content: " ";
+    }
+  }
+
+  .page-item .active {
+    font-weight: 900;
+  }
+}
+
+.lastmod {
+  font-size: x-small;
+}
+
+hr.listsep {
+  margin-top: 2em;
+  margin-bottom: 1em;
+  height: 1px;
+  border: none;
+  border-top: 1px var(--main_filled_bgcolor) solid;
+}
+
+.may_be_outdated:not(:empty) {
+  margin-top: 1em;
+  background-color: var(--may_be_outdated);
+  padding-left: 2em;
+  padding-right: 2em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.may_be_outdated:not([derty-outdated]) {
+  display: none;
+}
+
+.folding {
+  input[type=checkbox] {
+    display: none;
+  }
+  input[type=checkbox] + label::after {
+    content: "[+]"
+  }
+  input[type=checkbox]:checked + label::after {
+    content: "[-]"
+  }
+  .content {
+    transition: all 0.5s;
+    max-height: 0;
+    opacity: 0;
+  }
+  input[type=checkbox]:checked + label + .content {
+    max-height: 1000px;
+    opacity: 1;
+  }
+}
+
+//  vim: set et ft=scss sts=2 sw=2 ts=2 tw=0 :

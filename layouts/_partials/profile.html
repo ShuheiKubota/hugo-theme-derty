@@ -1,0 +1,12 @@
+{{ "<!-- PROFILE -->" | safeHTML }}
+<div class="profile">
+  {{ with $.Site.Params.derty.profileHTML -}}
+    {{ . | safeHTML }}
+  {{- end -}}
+
+  <p class="description">
+    {{ $.Site.Params.derty.profileDescription }}
+  </p>
+</div>
+{{ "<!-- PROFILE -->" | safeHTML }}
+{{/* vim: set et ft=html sts=2 sw=2 ts=2 : */}}

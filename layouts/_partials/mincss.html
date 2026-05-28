@@ -1,0 +1,24 @@
+{{- $break := false -}}
+{{- if .sass -}}
+  {{ $opts := dict
+    "transpiler" "dartsass"
+    "outputStyle" "compressed"
+  }}
+  {{- $a := resources.Get .sass | css.Sass $opts | fingerprint -}}
+  <link href="{{ $a.Permalink }}" rel="stylesheet">
+  {{- $break = true -}}
+{{- end -}}
+
+{{- if and (not $break) .css -}}
+  {{- $a := resources.Get .css -}}
+  {{- if $a -}}
+    {{ $a := $a | minify | fingerprint }}
+      <link href="{{ $a.Permalink }}" rel="stylesheet">
+    {{- $break = true -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if and (not $break) .static -}}
+<link href="{{ .base }}{{ .static }}" rel="stylesheet">
+{{- end -}}
+{{/* vim: set et ft=html sts=2 sw=2 ts=2 : */}}

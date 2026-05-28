@@ -1,1 +1,10 @@
-<p>Copyright {{ now.Year }}. All rights reserved.</p>
+
+{{ "<!-- FOOTER -->" | safeHTML }}
+Top: <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a> |
+{{- with .OutputFormats.Get "RSS" -}}
+<a rel="alternate" type="application/atom+xml" href="{{ .RelPermalink }}">Feed</a><br/>
+{{- end -}}
+
+{{ .Site.Copyright }}<br/>
+Powered by <a href="https://gohugo.io/">Hugo</a><br/>
+{{ "<!-- FOOTER -->" | safeHTML }}

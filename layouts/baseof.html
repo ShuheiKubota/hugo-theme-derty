@@ -1,17 +1,47 @@
 <!DOCTYPE html>
-<html lang="{{ site.Language.Locale }}" dir="{{ or site.Language.Direction `ltr` }}">
-<head>
-  {{ partial "head.html" . }}
-</head>
-<body>
-  <header>
-    {{ partial "header.html" . }}
-  </header>
-  <main>
-    {{ block "main" . }}{{ end }}
-  </main>
-  <footer>
-    {{ partial "footer.html" . }}
-  </footer>
-</body>
+<html lang="{{ .Site.Language.Locale }}">
+  <head>
+    <meta charset="utf-8">
+    <title>
+      {{ if .Page.IsHome }}
+        {{ .Site.Title }}
+      {{ else }}
+        {{ .Page.Title }} - {{ .Site.Title }}
+      {{ end }}
+    </title>
+
+    {{ partial "meta.html" . }}
+  </head>
+    <body>
+      {{ "<!-- Page.Kind=" | safeHTML }}{{ .Kind }}{{ " -->" | safeHTML }}
+      {{ if not .Draft }}
+        {{ partial "google_analytics.html" . }}
+      {{ end }}
+
+      <div class="header">
+        {{ partial "header.html" . }}
+      </div>
+
+      <div class="main">
+        <div class="toc-area">
+          {{ .TableOfContents }}
+        </div>
+        <div class="main-area">
+          {{ block "main" . }}{{ end }}
+        </div>
+        <div class="side-area">
+          {{ partial "profile.html" . }}
+          {{ partial "latest.html" . }}
+          {{ partial "tags.html" . }}
+        </div>
+      </div>
+
+      <div class="footer">
+        {{ partial "footer.html" . }}
+      </div>
+
+      {{ partial "minjs.html" (dict "js" "js/derty.js" "static" "js/derty.js" "base" .Site.BaseURL) }}
+
+    </body>
 </html>
+{{/* vim: set et ft=html sts=2 sw=2 ts=2 : */}}
