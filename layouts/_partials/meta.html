@@ -15,15 +15,10 @@
 {{ partial "mincss.html" (dict "sass" "sass/derty.scss" "css" "css/derty.css" "static" "css/derty.css" "base" .Site.BaseURL) }}
 
 <!-- syntax highlighting -->
-{{ $cssSyntax := resources.Get "css/syntax.css" }}
-{{ $cssSyntaxDark := resources.Get "css/syntax_dark.css" }}
-<style type="text/css" media="screen">
-  @media (prefers-color-scheme: dark) { 
-    {{ $cssSyntaxDark.Content | safeCSS }}
-  }
-  @media (prefers-color-scheme: light) { 
-    {{ $cssSyntax.Content | safeCSS }}
-  }
-</style>
+{{ $cssSyntax := resources.Get "css/syntax.css" | minify | fingerprint }}
+  <link href="{{ $cssSyntax.Permalink }}" rel="stylesheet" media="(prefers-color-scheme: light)">
+{{ $cssSyntaxDark := resources.Get "css/syntax_dark.css" | minify | fingerprint }}
+  <link href="{{ $cssSyntaxDark.Permalink }}" rel="stylesheet" media="(prefers-color-scheme: dark)">
+
 {{ "<!-- META -->" | safeHTML }}
 {{/* vim: set et ft=html sts=2 sw=2 ts=2 : */}}
