@@ -23,13 +23,13 @@
       </div>
 
       <div class="main">
-        <div class="toc-area" {{- if $.Site.Params.derty.pagefind }} data-pagefind-ignore="all"{{ end -}}>
+        <div class="toc-area">
           {{ .TableOfContents }}
         </div>
-        <div class="main-area" {{- if and $.Site.Params.derty.pagefind (not .IsPage) }} data-pagefind-ignore="all"{{ end -}}>
+        <div class="main-area" {{- if and $.Site.Params.derty.pagefind .IsPage }} data-pagefind-body{{ end -}}>
           {{ block "main" . }}{{ end }}
         </div>
-        <div class="side-area" {{- if $.Site.Params.derty.pagefind }} data-pagefind-ignore="all"{{ end -}}>
+        <div class="side-area">
           {{ partial "search.html" . }}
           {{ partial "profile.html" . }}
           {{ partial "latest.html" . }}
@@ -37,7 +37,7 @@
         </div>
       </div>
 
-      <div class="footer" {{- if $.Site.Params.derty.pagefind }} data-pagefind-ignore="all"{{ end -}}>
+      <div class="footer">
         {{ partial "footer.html" . }}
       </div>
 
