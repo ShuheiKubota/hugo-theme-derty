@@ -27,7 +27,8 @@
     # 空白の場合は 📄 が使われる。 HTML 可。
     latestIconHTML = "<img src='/abc.png' />"
 
-    # Pagefind を使った検索ボックスを Profile や Latest の上に表示します。
+    # Pagefind を使ったサイト内検索ボックスを Profile や Latest の上に表示します。
+    # 後述するプロジェクト側の対応が必要です。
     pagefind = true
 
 [markup]
@@ -39,6 +40,15 @@
 
   [markup.highlight]
     noClasses = false
+```
+
+#### pagefind の追加対応
+
+先に `hugo build` しておきます。
+https://pagefind.app/docs/#indexing-your-site にあるように、インデックスを生成します。
+
+```bash
+npx pagefind --site public
 ```
 
 ## セクションの _index.md のフロントマター
