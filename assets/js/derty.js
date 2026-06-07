@@ -32,23 +32,26 @@ function replaceSince(spanElem) {
     spanElem.firstChild.data = expr
 }
 
+// おおよその経過時間を返す。
 // 2 year, 35 months
 // 11 months, 360 days
 // 27 days
 // 23 hours 59 minuts
 function since(now, dt) {
     var s = null
-    var d = now.getTime() - dt.getTime()
+    var d = now - dt
 
-    var dym = (now.getFullYear() * 12 + now.getMonth() + 1) - (dt.getFullYear() * 12 + dt.getMonth() + 1);
-    if (dym >= 12)  {
-        s = {...(s||{}), years: Math.trunc(dym / 12)}
+    var days = d / (24 * 60 * 60 * 1000)
+    if (days >= 365)  {
+        s = {...(s||{}), years: Math.trunc(days / 365)}
+        days %= 365
     }
-    if (dym > 0) {
-        s = {...(s||{}), months: dym}
+    if (days >= 28) {
+        s = {...(s||{}), months: Math.trunc(days / (365 / 12))}
+        days %= 365 / 12
     }
     if (s === null || s.years === undefined) {
-        var days = Math.floor(d / (24 * 60 * 60 * 1000))
+        var days = Math.floor(days)
         if (days > 0) {
             s = {...(s||{}), days: Math.floor(d / (24 * 60 * 60 * 1000))}
         }
