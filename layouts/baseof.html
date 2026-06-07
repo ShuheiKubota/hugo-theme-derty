@@ -23,20 +23,21 @@
       </div>
 
       <div class="main">
-        <div class="toc-area">
+        <div class="toc-area" {{- if $.Site.Params.derty.pagefind }} data-pagefind-ignore="all"{{ end -}}>
           {{ .TableOfContents }}
         </div>
-        <div class="main-area">
+        <div class="main-area" {{- if and $.Site.Params.derty.pagefind (not .IsPage) }} data-pagefind-ignore="all"{{ end -}}>
           {{ block "main" . }}{{ end }}
         </div>
-        <div class="side-area">
+        <div class="side-area" {{- if $.Site.Params.derty.pagefind }} data-pagefind-ignore="all"{{ end -}}>
+          {{ partial "search.html" . }}
           {{ partial "profile.html" . }}
           {{ partial "latest.html" . }}
           {{ partial "tags.html" . }}
         </div>
       </div>
 
-      <div class="footer">
+      <div class="footer" {{- if $.Site.Params.derty.pagefind }} data-pagefind-ignore="all"{{ end -}}>
         {{ partial "footer.html" . }}
       </div>
 

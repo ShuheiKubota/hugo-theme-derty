@@ -14,11 +14,17 @@
 
 {{ partial "mincss.html" (dict "sass" "sass/derty.scss" "css" "css/derty.css" "static" "css/derty.css" "base" .Site.BaseURL) }}
 
+{{ if $.Site.Params.derty.pagefind -}}
+<!-- Pagefind -->
+<link href="/pagefind/pagefind-component-ui.css" rel="stylesheet">
+<script src="/pagefind/pagefind-component-ui.js" type="module"></script>
+{{- end }}
+
 <!-- syntax highlighting -->
 {{ $cssSyntax := resources.Get "css/syntax.css" | minify | fingerprint }}
-  <link href="{{ $cssSyntax.Permalink }}" rel="stylesheet" media="(prefers-color-scheme: light)">
+<link href="{{ $cssSyntax.Permalink }}" rel="stylesheet" media="(prefers-color-scheme: light)">
 {{ $cssSyntaxDark := resources.Get "css/syntax_dark.css" | minify | fingerprint }}
-  <link href="{{ $cssSyntaxDark.Permalink }}" rel="stylesheet" media="(prefers-color-scheme: dark)">
+<link href="{{ $cssSyntaxDark.Permalink }}" rel="stylesheet" media="(prefers-color-scheme: dark)">
 
 {{ "<!-- META -->" | safeHTML }}
 {{/* vim: set et ft=html sts=2 sw=2 ts=2 : */}}

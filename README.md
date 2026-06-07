@@ -27,6 +27,9 @@
     # 空白の場合は 📄 が使われる。 HTML 可。
     latestIconHTML = "<img src='/abc.png' />"
 
+    # Pagefind を使った検索ボックスを Profile や Latest の上に表示します。
+    pagefind = true
+
 [markup]
   [markup.tableOfContents]
     # Hugo 標準の設定。

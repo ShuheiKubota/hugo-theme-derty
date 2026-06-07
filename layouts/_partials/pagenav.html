@@ -18,7 +18,7 @@
     {{ $next = $pages.Prev . }}
   {{ end }}
 
-  <div class="pagenav">
+  <div class="pagenav" {{- if $.Site.Params.derty.pagefind }} data-pagefind-ignore="all"{{ end -}}>
     <div class="pagenav_prev">
       {{ if $prev }}
         <a href="{{ $prev.Permalink }}">&laquo; {{ $prev.Title }} &laquo;</a>

@@ -63,6 +63,14 @@ $colors: (
     alert_caution_bgcolor: color.mix($derty_white, $derty_alert_caution, 95%),
     alert_caution_heading_color: color.mix(color.mix($derty_alert_caution, $derty_black, 75%), $derty_white, 85%),
     alert_caution_color: color.mix($derty_black, $derty_white, 80%),
+    pf-text: $derty_black,
+    pf-text-secondary: color.mix($derty_black, $derty_black, 80%),
+    pf-text-muted: $derty_half,
+    pf-mark: color.mix(red, $derty_black, 40%),
+    pf-background: $derty_white,
+    pf-hover: $derty_white,
+    pf-skeleton: $derty_white,
+    pf-border: $derty_half,
   ),
   dark: (
     bgcolor: $derty_black,
@@ -108,19 +116,27 @@ $colors: (
     alert_caution_bgcolor: color.mix($derty_black, $derty_alert_caution, 95%),
     alert_caution_heading_color: color.mix(color.mix($derty_alert_caution, $derty_white, 75%), $derty_white, 85%),
     alert_caution_color: color.mix($derty_white, $derty_black, 80%),
+    pf-text: $derty_dimmed_white,
+    pf-text-secondary: color.mix($derty_dimmed_white, $derty_black, 80%),
+    pf-text-muted: $derty_half,
+    pf-mark: color.mix(yellow, $derty_black, 80%),
+    pf-background: $derty_black,
+    pf-hover: $derty_black,
+    pf-skeleton: $derty_black,
+    pf-border: $derty_half,
   ),
 );
 
 :root {
   @each $prop, $val in map.get($colors, light) {
-    --#{$prop}: #{$val};
+    --#{$prop}: #{$val} !important;
   }
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     @each $prop, $val in map.get($colors, dark) {
-      --#{$prop}: #{$val};
+      --#{$prop}: #{$val} !important;
     }
   }
 }
@@ -492,6 +508,25 @@ figcaption p {
 
 #TableOfContents:empty {
   display: none;
+}
+
+.search {
+  border: thin solid var(--side_border_color);
+  margin-bottom: 2em;
+  padding-bottom: 1em;
+
+  &:before {
+    display: block;
+    padding: 1ex;
+    content: "Search";
+    font-weight: bold;
+    background-color: var(--band_bgcolor);
+    color: var(--band_color);
+  }
+
+  > * {
+    padding: 0 1em;
+  }
 }
 
 .profile {

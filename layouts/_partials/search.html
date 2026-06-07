@@ -1,0 +1,11 @@
+{{ "<!-- SEARCH -->" | safeHTML }}
+
+{{- if $.Site.Params.derty.pagefind -}}
+<div class="search">
+  <pagefind-modal-trigger shortcut="/"></pagefind-modal-trigger>
+  <pagefind-modal reset-on-close="true"></pagefind-modal>
+</div>
+{{- end }}
+
+{{ "<!-- SEARCH -->" | safeHTML }}
+{{/* vim: set et ft=html sts=2 sw=2 ts=2 : */}}
